@@ -8,7 +8,6 @@ LOCAL_SRC_FILES = \
 		$(notdir $(wildcard $(LOCAL_PATH)/*.c)) \
 
 LOCAL_SRC_FILES += \
-        ./cdcIniparser/CdcLog.c   \
         ./cdcIniparser/cdcDictionary.c   \
         ./cdcIniparser/cdcIniparserapi.c \
         ./cdcIniparser/cdcIniparser.c
