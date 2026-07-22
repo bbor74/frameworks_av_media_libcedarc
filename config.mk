@@ -18,6 +18,10 @@ else ifeq ($(product), astar)
     ifeq ($(android_version), 7)
         config_file = config_pad_A33_Nougat.mk
     endif
+else ifeq ($(product), polaris)
+    ifeq ($(android_version), 7)
+        config_file = config_pad_A23_Nougat.mk
+    endif
 else ifeq ($(product), tulip)
     ifeq ($(android_version), 5)
         config_file = config_pad_A64_lollipop.mk
