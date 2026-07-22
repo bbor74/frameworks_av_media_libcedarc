@@ -37,7 +37,12 @@
 #include <ion/ion.h>
 #include <linux/ion.h>
 #include <cutils/properties.h>
+#ifdef GPU_PUBLIC_INCLUDE
 #include GPU_PUBLIC_INCLUDE
+#else
+#include "gralloc_priv.h"
+//#include <hal_public.h>
+#endif
 #include <binder/IPCThreadState.h>
 #include <media/stagefright/foundation/ADebug.h>
 #include <ui/GraphicBufferMapper.h>

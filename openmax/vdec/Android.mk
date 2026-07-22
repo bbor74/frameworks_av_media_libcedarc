@@ -33,6 +33,8 @@ LOCAL_C_INCLUDES:= $(OMX_TOP)/omxcore/include  \
                    $(TOP)/frameworks/native/libs/nativewindow/include \
                    $(TOP)/frameworks/native/libs/arect/include
 
+LOCAL_C_INCLUDES  += $(TOP)/device/explay/fog2/hardware/libhardware/hwcomposer_as/
+
 LOCAL_CFLAGS += $(CDX_CFLAGS)
 LOCAL_CFLAGS += -DTARGET_BOARD_PLATFORM=$(TARGET_BOARD_PLATFORM)
 
