@@ -23,3 +23,5 @@ LOCAL_CFLAGS += -DCONF_MALI_GPU
 ## 6. ve ipc
 #LOCAL_CFLAGS += -DCONFIG_VE_IPC_ENABLE
 
+##10. config kernel bitwide value as 32 explicitly FOR DI process.
+LOCAL_CFLAGS += -DCONF_KERN_BITWIDE=32
