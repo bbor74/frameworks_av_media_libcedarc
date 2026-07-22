@@ -814,7 +814,7 @@ static int initBufferInfo(OmxAwDecoderContext *pCtx,
     private_handle_t* hnd = (private_handle_t *)(pBufferHandle);
     if(hnd != NULL)
     {
-        ion_import(pCtx->mIonFd, hnd->share_fd, &handle_ion);
+        ion_import(pCtx->mIonFd, hnd->share_fd, (ion_user_handle_t*)&handle_ion);
     }
     else
     {
@@ -2350,7 +2350,7 @@ static void freeOutputBufferInfoArr(OmxAwDecoderContext *pCtx)
                 }
                 close(pCtx->mOutputBufferInfoArr[i].nBufFd);
             }
-            ret = ion_free(pCtx->mIonFd, pCtx->mOutputBufferInfoArr[i].handle_ion);
+            ret = ion_free(pCtx->mIonFd, (ion_user_handle_t)pCtx->mOutputBufferInfoArr[i].handle_ion);
             if(ret != 0)
                 omx_loge("ion_free( %d ) failed", pCtx->mIonFd);
             pCtx->mOutputBufferInfoArr[i].handle_ion = ION_NULL_VALUE;
