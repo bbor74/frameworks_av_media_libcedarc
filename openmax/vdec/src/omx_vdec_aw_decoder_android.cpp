@@ -2479,11 +2479,12 @@ static OMX_ERRORTYPE __anGetExtPara(OmxDecoder* pDec,
 #ifdef CONF_Q_AND_NEWER
             param->nUsage |= GRALLOC1_PRODUCER_USAGE_VIDEO_DECODER;
 #endif
-
+#ifdef CONF_AFBC_ENABLE
             if(pCtx->nExtendFlag & AW_VIDEO_AFBC_FLAG)
             {
                 param->nUsage |= GRALLOC_USAGE_AFBC_MODE;
             }
+#endif
             omx_logd(" ===== get usage: %lx", param->nUsage);
             break;
         }
