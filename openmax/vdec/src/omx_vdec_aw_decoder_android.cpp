@@ -3254,34 +3254,46 @@ static void __anUpdateFormat(OmxDecoder* pDec)
             case PIXEL_FORMAT_YV12:
             {
                 color = HAL_PIXEL_FORMAT_YV12;
+#ifdef HAL_PIXEL_FORMAT_AW_YV12_10bit
                 if(pCtx->nExtendFlag & AW_VIDEO_10BIT_FLAG)
                     color = HAL_PIXEL_FORMAT_AW_YV12_10bit;
+#endif
                 break;
             }
             case PIXEL_FORMAT_NV21:
             {
                 color = HAL_PIXEL_FORMAT_YCrCb_420_SP;
+#ifdef HAL_PIXEL_FORMAT_AW_NV21_10bit
                 if(pCtx->nExtendFlag & AW_VIDEO_10BIT_FLAG)
                     color = HAL_PIXEL_FORMAT_AW_NV21_10bit;
+#endif
                 break;
             }
+#ifdef HAL_PIXEL_FORMAT_AW_NV12
             case PIXEL_FORMAT_NV12:
             {
                 color = HAL_PIXEL_FORMAT_AW_NV12;
+#ifdef HAL_PIXEL_FORMAT_AW_NV12_10bit
                 if(pCtx->nExtendFlag & AW_VIDEO_10BIT_FLAG)
                     color = HAL_PIXEL_FORMAT_AW_NV12_10bit;
+#endif
                 break;
             }
+#endif
+#ifdef HAL_PIXEL_FORMAT_AW_P010_UV
             case PIXEL_FORMAT_P010_UV:
             {
                 color = HAL_PIXEL_FORMAT_AW_P010_UV;
                 break;
             }
+#endif
+#ifdef HAL_PIXEL_FORMAT_AW_P010_VU
             case PIXEL_FORMAT_P010_VU:
             {
                 color = HAL_PIXEL_FORMAT_AW_P010_VU;
                 break;
             }
+#endif
             default:
             {
                 //*it will init the pixelformat when omx start,
