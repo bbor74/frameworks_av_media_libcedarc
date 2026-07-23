@@ -35,7 +35,12 @@
 #include <ui/Fence.h>
 #include <cutils/properties.h>
 
+#ifdef GPU_PUBLIC_INCLUDE
 #include GPU_PUBLIC_INCLUDE
+#else
+#include "gralloc_priv.h"
+//#include <hal_public.h>
+#endif
 
 #ifdef CONF_MARSHMALLOW_AND_NEWER
 #include <OMX_IndexExt.h>

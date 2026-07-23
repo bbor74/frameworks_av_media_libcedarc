@@ -42,6 +42,7 @@ LOCAL_C_INCLUDES := \
 	$(MOD_TOP)/ve/include \
 	$(MOD_TOP)/ \
 
+LOCAL_C_INCLUDES  += $(TOP)/device/explay/fog2/hardware/libhardware/hwcomposer_as/
 LOCAL_C_INCLUDES  += $(TOP)/hardware/libhardware/include/hardware/
 
 LOCAL_SHARED_LIBRARIES := \
