@@ -11,6 +11,7 @@ libvdecoder_src_common   +=  pixel_format.c
 libvdecoder_src_common   +=  sbm/sbmStream.c
 libvdecoder_src_common   +=  sbm/sbmFrameH264.c
 libvdecoder_src_common   +=  sbm/sbmFrameH265.c
+libvdecoder_src_common   +=  sbm/sbmFrameAvs2.c
 libvdecoder_src_common   +=  sbm/sbmFrameBase.c
 libvdecoder_src_common   +=  vdecoder.c
 
