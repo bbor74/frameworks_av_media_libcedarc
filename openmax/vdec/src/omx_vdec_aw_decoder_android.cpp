@@ -3451,7 +3451,11 @@ OmxDecoder* OmxDecoderCreate(AwOmxVdecPort* in, AwOmxVdecPort* out, OMX_BOOL bIs
         omx_loge("ion open fail ! ");
         return NULL;
     }
+#ifdef GPU_ALIGN_STRIDE
     pCtx->mGpuAlignStride = GPU_ALIGN_STRIDE;
+#else
+    pCtx->mGpuAlignStride = 32;
+#endif
     //* get the phy offset
     int type = VE_OPS_TYPE_NORMAL;
     VeOpsS* veOps = GetVeOpsS(type);
