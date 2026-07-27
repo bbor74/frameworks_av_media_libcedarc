@@ -25,14 +25,17 @@ PRODUCT_PACKAGES += \
 	libvdecoder \
 	libvideoengine \
 	libVE \
-	libvencoder \
-        libvenc_base \
-        libvenc_codec \
 	libOmxCore \
 	libOmxVdec \
-	libOmxVenc \
 	libstagefrighthw \
 	cedarc.conf \	
+
+# Encoder
+#PRODUCT_PACKAGES += \
+       libvencoder \
+        libvenc_base \
+        libvenc_codec \
+       libOmxVenc \
 
 PRODUCT_PACKAGES += \
         libawavs.vendor \
