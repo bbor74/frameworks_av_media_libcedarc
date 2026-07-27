@@ -40,7 +40,7 @@ enum CDX_LOG_LEVEL_TYPE GLOBAL_LOG_LEVEL = (enum CDX_LOG_LEVEL_TYPE)LOG_LEVEL_WA
 //TODO: set module tag in log
 void log_set_level(unsigned level)
 {
-    logw("Set log level to %u from /vendor/etc/cedarc.conf", level);
+    logw("Set log level to %u from /etc/cedarc.conf", level);
 #ifdef __ANDROID__
     char val[256];
     property_get("vendor.omx.debuglevel", val, "3");

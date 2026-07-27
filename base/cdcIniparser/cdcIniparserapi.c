@@ -22,7 +22,7 @@ static dictionary* g_ini = NULL;
 int  CdcIniParserInit()
 {
     logd("CdcIniParserInit");
-    char ini_name[265] = "/vendor/etc/cedarc.conf";
+    char ini_name[265] = "/etc/cedarc.conf";
 
     g_ini = iniparser_load(ini_name);
     if (g_ini == NULL)
