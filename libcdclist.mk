@@ -31,7 +31,7 @@ PRODUCT_PACKAGES += \
 	cedarc.conf \	
 
 # Encoder
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
        libvencoder \
         libvenc_base \
         libvenc_codec \
