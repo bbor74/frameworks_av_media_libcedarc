@@ -62,7 +62,7 @@ extern "C" void ImgRGBA2YUV420SP_neon(unsigned char *pu8RgbBuffer,
                                       int l32Height);
 #endif
 #endif
-
+#ifndef CONF_DONT_HAVE_AWBUFID
 int parseEncInputBuffer(AwOmxVenc *impl,
                                       long long aw_buf_id,
                                       int share_fd,
@@ -180,7 +180,7 @@ int deparseEncInputBuffer(int nIonFd,
     }
     return 0;
 }
-
+#endif
 //Since the CustomParams are set by setDeafaultParameter in Android case,
 // they would be got only in Android case.
 //TODO: figure out in linux case whether the custom params are required!!!
@@ -499,7 +499,7 @@ void getAndAddInputBuffer(AwOmxVenc* impl, OMX_BUFFERHEADERTYPE* pInBufHdr,
                     break;
                 }
             }
-
+#ifndef CONF_DONT_HAVE_AWBUFID
             if (impl->mIonFd != -1)
             {
                 int ret = 0;
@@ -511,6 +511,23 @@ void getAndAddInputBuffer(AwOmxVenc* impl, OMX_BUFFERHEADERTYPE* pInBufHdr,
                                             &phyaddress);
                 if(ret < 0)
                     omx_loge("parseEncInputBuffer error\n");
+#else
+                                    int fd = ion_open();
+#ifdef CONF_KERNEL_VERSION_3_10
+                                    ion_user_handle_t handle_ion;
+#else
+                                    struct ion_handle *handle_ion;
+#endif
+                                    if (fd != -1)
+                                    {
+#ifdef CONF_MALI_GPU
+                                        ion_import(fd, hnd->share_fd, (ion_user_handle_t*)&handle_ion);
+#else
+                                        ion_import(fd, hnd->fd[0], &handle_ion);
+#endif
+                                        phyaddress= CdcIonGetPhyAdr(fd, (uintptr_t)handle_ion);
+                                        ion_close(fd);
+#endif
             }
             else
             {
@@ -555,7 +572,7 @@ void getAndAddInputBuffer(AwOmxVenc* impl, OMX_BUFFERHEADERTYPE* pInBufHdr,
             memcpy(sInputBuffer,
                    (pInBufHdr->pBuffer+pInBufHdr->nOffset + 4),
                    sizeof(VencInputBuffer));
-
+#ifndef CONF_DONT_HAVE_AWBUFID
             share_fd = sInputBuffer->nShareBufFd;
             ret = parseEncInputBuffer(impl,
                     (long long)sInputBuffer->nID,
@@ -565,6 +582,7 @@ void getAndAddInputBuffer(AwOmxVenc* impl, OMX_BUFFERHEADERTYPE* pInBufHdr,
                 omx_loge("parseEncInputBuffer error\n");
 
             sInputBuffer->pAddrPhyY = (unsigned char*)phyaddress;
+#endif
             sInputBuffer->pAddrPhyC = sInputBuffer->pAddrPhyY +
             impl->m_sInPortDefType.format.video.nStride *
             impl->m_sInPortDefType.format.video.nFrameHeight;

@@ -52,9 +52,9 @@ void getInputBufferFromBufHdrWithoutCrop (AwOmxVenc* impl, OMX_BUFFERHEADERTYPE*
 void determineVencColorFormat(AwOmxVenc* impl);
 
 void determineVencBufStrideIfNecessary(AwOmxVenc* impl, VencBaseConfig* pBaseConfig);
-
+#ifndef CONF_DONT_HAVE_AWBUFID
 int deparseEncInputBuffer(int nIonFd, VideoEncoder *pEncoder, OMXInputBufferInfoT *pInputBufInfo);
-
+#endif
 void updateOmxDebugFlag(AwOmxVenc* impl);
 
 #ifdef __cplusplus

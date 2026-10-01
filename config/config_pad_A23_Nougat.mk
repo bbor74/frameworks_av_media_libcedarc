@@ -25,3 +25,6 @@ LOCAL_CFLAGS += -DCONF_MALI_GPU
 
 ##10. config kernel bitwide value as 32 explicitly FOR DI process.
 LOCAL_CFLAGS += -DCONF_KERN_BITWIDE=32
+
+
+LOCAL_CFLAGS += -DCONF_DONT_HAVE_AWBUFID

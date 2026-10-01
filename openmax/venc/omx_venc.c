@@ -357,7 +357,7 @@ static void __AwOmxVencDestroy(OMX_HANDLETYPE pCmp_handle)
 
     if(impl->memops)
         CdcMemClose(impl->memops);
-
+#ifndef CONF_DONT_HAVE_AWBUFID
     if (impl->mIonFd != -1)
     {
         int ret = 0;
@@ -366,7 +366,7 @@ static void __AwOmxVencDestroy(OMX_HANDLETYPE pCmp_handle)
             omx_loge("CdcIonClose ion fd error\n");
         impl->mIonFd = -1;
     }
-
+#endif
     pthread_mutex_unlock(&impl->m_outBufMutex);
     pthread_mutex_destroy(&impl->m_inBufMutex);
     pthread_mutex_destroy(&impl->m_outBufMutex);
@@ -409,7 +409,9 @@ static OMX_ERRORTYPE __AwOmxVencInit(OMX_HANDLETYPE pCmp_handle, OMX_STRING pCom
     impl->m_usePSkip             = OMX_FALSE;
     impl->mEmptyBufCnt           = 0;
     impl->mFillBufCnt            = 0;
+#ifndef CONF_DONT_HAVE_AWBUFID
     impl->mIonFd                   = -1;
+#endif
     impl->memops =  MemAdapterGetOpsS();
     CdcMemOpen(impl->memops);
 
@@ -432,8 +434,9 @@ static OMX_ERRORTYPE __AwOmxVencInit(OMX_HANDLETYPE pCmp_handle, OMX_STRING pCom
     memset(&impl->m_sOutBufSupplierType, 0, sizeof(impl->m_sOutBufSupplierType));
     memset(&impl->m_sInBufList, 0, sizeof(impl->m_sInBufList));
     memset(&impl->m_sOutBufList, 0, sizeof(impl->m_sOutBufList));
+#ifndef CONF_DONT_HAVE_AWBUFID
     memset(impl->mInputBufInfo, 0, sizeof(impl->mInputBufInfo));
-
+#endif
     pthread_mutex_init(&impl->m_inBufMutex, NULL);
     pthread_mutex_init(&impl->m_outBufMutex, NULL);
 
@@ -727,7 +730,7 @@ static OMX_ERRORTYPE __AwOmxVencInit(OMX_HANDLETYPE pCmp_handle, OMX_STRING pCom
     memset(&impl->mVideoSuperFrame, 0, sizeof(OMX_VIDEO_PARAMS_SUPER_FRAME));
     memset(&impl->mVideoSVCSkip, 0, sizeof(OMX_VIDEO_PARAMS_SVC));
     memset(&impl->mVideoVBR, 0, sizeof(OMX_VIDEO_PARAMS_VBR));
-
+#ifndef CONF_DONT_HAVE_AWBUFID
     impl->mIonFd = CdcIonOpen();
     if (impl->mIonFd < 0)
     {
@@ -740,6 +743,7 @@ static OMX_ERRORTYPE __AwOmxVencInit(OMX_HANDLETYPE pCmp_handle, OMX_STRING pCom
     {
         impl->mInputBufInfo[i].nAwBufId= -1;
     }
+#endif
     updateOmxDebugFlag(impl);
 
     if(impl->bSaveStreamFlag)
@@ -4014,13 +4018,14 @@ static void* ComponentVencThread(void* pThreadData)
                     omx_logv("(f:%s, l:%d) vencThread receive cmd[0x%x]", __FUNCTION__, __LINE__, cmd);
                     if (impl->m_encoder)
                     {
+#ifndef CONF_DONT_HAVE_AWBUFID
                         int ret;
                         ret = deparseEncInputBuffer(impl->mIonFd,
                                                         impl->m_encoder,
                                                         impl->mInputBufInfo);
                         if(ret < 0)
                             omx_loge("deparse_omx_enc_input_buffer error\n");
-
+#endif
                         closeVencDriver(impl);
                     }
                     omx_sem_up(&impl->m_msg_sem);

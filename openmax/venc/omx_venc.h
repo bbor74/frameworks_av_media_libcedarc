@@ -63,7 +63,9 @@ typedef enum VIDENC_CUSTOM_INDEX
  */
 #define OMX_NOPORT                      0xFFFFFFFE
 #define NUM_IN_BUFFERS                  2            // Input Buffers
+#ifndef CONF_DONT_HAVE_AWBUFID
 #define NUM_MAX_IN_BUFFERS              64            // Input Buffers
+#endif
 #define NUM_OUT_BUFFERS                 4           // Output Buffers
 #define OMX_TIMEOUT                     10          // Timeout value in milisecond
 // Count of Maximum number of times the component can time out
@@ -118,7 +120,7 @@ struct _BufferList
     OMX_U32                  nAllocSize;
     OMX_DIRTYPE              eDir;
 };
-
+#ifndef CONF_DONT_HAVE_AWBUFID
 typedef struct OMXInputBufferInfoS
 {
     aw_ion_user_handle_t  handle_ion;
@@ -128,7 +130,7 @@ typedef struct OMXInputBufferInfoS
     int                   nShareFd;
     long long             nAwBufId;
 }OMXInputBufferInfoT;
-
+#endif
  // OMX video decoder class
 typedef struct _AwOmxVenc
 {
@@ -182,8 +184,10 @@ typedef struct _AwOmxVenc
     OMX_VIDEO_PARAMS_VBR            mVideoVBR;
     struct ScMemOpsS *memops;
     OMX_BOOL                        m_usePSkip;
+#ifndef CONF_DONT_HAVE_AWBUFID
     OMXInputBufferInfoT             mInputBufInfo[NUM_MAX_IN_BUFFERS];
     OMX_S32                         mIonFd;
+#endif
     int                             mFrameCnt;
     int                             mAllFrameSize;
     uint64_t                        mTimeStart;
