@@ -21,7 +21,12 @@ MY_SDK=amm60
 endif
 
 ifeq ($(NOUGAT_AND_NEWER), yes)
+ifeq ($(strip $(CEDARC_A23_FIX)),true)
+MY_SDK=anou70_A23
+$(warning $(TARGET_PRODUCT) use A23 FIX)
+else
 MY_SDK=anou70
+endif
 endif
 
 ifeq ($(OREO_AND_NEWER), yes)
