@@ -1,1 +1,1 @@
-# libcedarc for allwinner A23
+# libcedarc for allwinner A23,A33
